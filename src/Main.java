@@ -6,7 +6,9 @@ public class Main {
 
     int[] arr = new int[] {1, 2, 3, 4, 5};
     int k = 17;
-    solutionTask2(arr);
+    // solutionTask2(arr);
+    int count = frogRecursionProblem(11);
+    System.out.println(count);
   }
 
   //  private static void solutionTask1(int[] arr, int k) {
@@ -142,4 +144,56 @@ public class Main {
   //      }
   //    }
   //  }
+
+  void countNodes() {
+
+    class Node {
+      int val;
+      Node next;
+    }
+
+    class Solution {
+      private void countNodes(Node head) {
+
+        int nodes = lengthOfNodes(head);
+      }
+
+      int lengthOfNodes(Node node) {
+
+        int count = 0;
+        while (node.next != null) {
+          node = node.next;
+          count += 1;
+        }
+
+        return count;
+      }
+    }
+  }
+
+  static int frogRecursionProblem(int formidablePos) {
+//
+//    if (formidablePos == 0) {
+//      return 0;
+//    }
+//    if (formidablePos == 1) {
+//      return 1;
+//    }
+//    return frogRecursionProblem(formidablePos - 1) + frogRecursionProblem(formidablePos - 2);
+        if (formidablePos > 0) {
+          return frogRecursionProblem(formidablePos - 1)
+                  + frogRecursionProblem(formidablePos - 2);
+        } else {
+          return 1;
+        }
+  }
+
+  static String longestString(String data) {
+
+    for (char c : data.toCharArray() ) {
+      char temp = c;
+
+
+    }
+  }
 }
