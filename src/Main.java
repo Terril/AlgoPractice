@@ -1,13 +1,14 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
   public static void main(String args[]) {
 
-    int[] arr = new int[] {1, 2, 3, 4, 5};
+    int[] arr = new int[] {2, 3, -7, 6, 8, 1, -10, 15 };
     int k = 17;
     // solutionTask2(arr);
-    int count = frogRecursionProblem(11);
+    int count = findMissingNumber(arr);//frogRecursionProblem(11);
     System.out.println(count);
   }
 
@@ -172,28 +173,50 @@ public class Main {
   }
 
   static int frogRecursionProblem(int formidablePos) {
+    //
+    //    if (formidablePos == 0) {
+    //      return 0;
+    //    }
+    //    if (formidablePos == 1) {
+    //      return 1;
+    //    }
+    //    return frogRecursionProblem(formidablePos - 1) + frogRecursionProblem(formidablePos - 2);
+    if (formidablePos > 0) {
+      return frogRecursionProblem(formidablePos - 1) + frogRecursionProblem(formidablePos - 2);
+    } else {
+      return 1;
+    }
+  }
 //
-//    if (formidablePos == 0) {
-//      return 0;
+//  static String longestString(String data) {
+//
+//    for (char c : data.toCharArray()) {
+//      char temp = c;
 //    }
-//    if (formidablePos == 1) {
-//      return 1;
-//    }
-//    return frogRecursionProblem(formidablePos - 1) + frogRecursionProblem(formidablePos - 2);
-        if (formidablePos > 0) {
-          return frogRecursionProblem(formidablePos - 1)
-                  + frogRecursionProblem(formidablePos - 2);
-        } else {
-          return 1;
-        }
+//  }
+
+  private void numWays(String digits) {
+    int length = digits.length();
+    if (length >= 0) {
+      char a = digits.charAt(length);
+      numWays(digits.substring(0, digits.length() - 1));
+    }
   }
 
-  static String longestString(String data) {
+  static int findMissingNumber(int[] arr) {
+  boolean[] items = new boolean[arr.length + 1];
+    for (int i = 0; i < arr.length; i++) {
 
-    for (char c : data.toCharArray() ) {
-      char temp = c;
-
-
+      if (arr[i] > 0 && arr[i] <= arr.length) {
+        items[arr[i]] =  true;
+      }
     }
+    for (int j = 1; j <= arr.length; j++) {
+      if (!items[j]) {
+        return j;
+      }
+    }
+
+    return arr.length + 1;
   }
 }
