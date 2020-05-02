@@ -385,6 +385,10 @@ public class Main {
         return result;
     }
 
+static String rearrangedString(String content) {
+
+}
+
 }
 
 
