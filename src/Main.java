@@ -22,10 +22,15 @@ public class Main {
         //  closestSumPair(arr1, arr2, sum);
 
 
-        String data = "1221235";
-        int result = characterDecode(data, data.length());
+       // String data = "1221235";
+        //   int result = characterDecode(data, data.length());
+     //   rearrangedString("asd");
+        //  System.out.println(result);
 
-        System.out.println(result);
+        int val = findFibnacci(9);
+       // System.out.println(val);
+       boolean va =  isFibonacci(13);
+        System.out.println(va);
     }
 
     //  private static void solutionTask1(int[] arr, int k) {
@@ -366,7 +371,7 @@ public class Main {
             return 0;
         }
 
-        if (k == 0 ) {
+        if (k == 0) {
             return 1;
         }
         int s = data.length() - k;
@@ -375,7 +380,7 @@ public class Main {
             return 0;
         }
         int result = characterDecode(data, k - 1);
-        if (!(s == data.length()-1)) {
+        if (!(s == data.length() - 1)) {
             char second = data.charAt(s + 1);
             String newType = initial + "" + second;
             if (k >= 2 && (Integer.parseInt(newType) <= 26)) {
@@ -385,10 +390,107 @@ public class Main {
         return result;
     }
 
-static String rearrangedString(String content) {
+    static String rearrangedString(String content) {
+        content = "DORWBL4A16H1"; //"AC2BEW3";
 
-}
+        int[] alpha = new int[26];
+        int sum = 0;
+        for (char c :
+                content.toCharArray()) {
+            int j = (int) c;
+            if (j >= 65 && j <= 90) {
+                alpha[j - 65]++;
+            } else {
+                sum = sum + (j - 48);
+            }
+        }
 
+        //  Collections.sort(alpha);
+        for (int i = 0; i < 26; i++) {
+            for (int j = 1; j <= alpha[i]; j++)
+                System.out.print((char) (i + 65));
+        }
+        // System.out.println(alpha.toString() );
+        System.out.print(sum);
+
+        Scanner sc = new Scanner(System.in);
+        return content;
+    }
+
+    private static int[] runningMedian(int[] a) {
+        int length = a.length;
+        PriorityQueue<Integer> lowers = new PriorityQueue<>(new Comparator<Integer>() {
+            @Override
+            public int compare(Integer integer, Integer t1) {
+                return -1 * integer.compareTo(t1);
+            }
+        }); // Max Heap
+        PriorityQueue<Integer> highers = new PriorityQueue<>(); // Min Heap
+        int[] medians = new int[length];
+        for (int i = 0; i < length; i++) {
+            int number = a[i];
+            addNumbers(number, lowers, highers);
+            rebalance(lowers, highers);
+            medians[i] = getMedian(lowers, highers);
+        }
+        return medians;
+    }
+
+    private static void addNumbers(int number, PriorityQueue<Integer> lowers, PriorityQueue<Integer> highers) {
+        if (lowers.isEmpty() || number < lowers.peek()) {
+            lowers.add(number);
+        } else {
+            highers.add(number);
+        }
+    }
+
+    private static void rebalance(PriorityQueue<Integer> lowers, PriorityQueue<Integer> highers) {
+        PriorityQueue<Integer> biggerHeap = lowers.size() > highers.size() ? lowers : highers;
+        PriorityQueue<Integer> smallerHeap = lowers.size() > highers.size() ? highers : lowers;
+        if (biggerHeap.size() - smallerHeap.size() >= 2) {
+            smallerHeap.add(biggerHeap.poll());
+        }
+    }
+
+    private static int getMedian(PriorityQueue<Integer> lowers, PriorityQueue<Integer> highers) {
+        PriorityQueue<Integer> biggerHeap = lowers.size() > highers.size() ? lowers : highers;
+        PriorityQueue<Integer> smallerHeap = lowers.size() > highers.size() ? highers : lowers;
+        if (biggerHeap.size() == smallerHeap.size()) {
+            return (biggerHeap.peek() + smallerHeap.peek()) / 2;
+        } else {
+            return biggerHeap.peek();
+        }
+    }
+
+
+    static int findFibnacci(int n) {
+
+        int[] ns = new int[n + 1];
+
+        ns[0] = 0;
+        ns[1] = 1;
+
+        for (int i = 2; i <= n; i++) {
+            ns[i] = ns[i - 1] + ns[i - 2];
+        }
+
+        return ns[n];
+    }
+
+    static  boolean isPerfectSquare(int x)
+    {
+        int s = (int) Math.sqrt(x);
+        return (s*s == x);
+    }
+
+    // Returns true if n is a Fibonacci Number, else false
+    static boolean isFibonacci(int n)
+    {
+        // n is Fibonacci if one of 5*n*n + 4 or 5*n*n - 4 or both
+        // is a perfect square
+        return isPerfectSquare(5*n*n + 4) ||
+                isPerfectSquare(5*n*n - 4);
+    }
 }
 
 
