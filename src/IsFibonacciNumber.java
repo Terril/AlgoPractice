@@ -4,7 +4,7 @@ import java.util.*;
 import java.lang.*;
 import java.io.*;
 
-class GFG {
+class IsFibonacciNumber {
     public static void main(String[] args) throws IOException {
         //code
 //        Scanner sc = new Scanner(System.in);
