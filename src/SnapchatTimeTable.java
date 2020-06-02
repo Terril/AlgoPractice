@@ -15,10 +15,11 @@ public class SnapchatTimeTable {
 
     private static int findNumberofRoomsNeeded(ClassTimeTable[] timeTables) {
         int max_rooms = 0;
-        int rooms = 1;
+
         for (int v = 0; v < timeTables.length; v++) {
-            for (int u = v + 1; u < timeTables.length; u++) {
-                if (timeTables[u].startTime < timeTables[v].startTime && timeTables[u].endTime < timeTables[v].endTime)
+            int rooms = 1;
+            for (int u = 0; u < timeTables.length; u++) {
+                if (timeTables[u].startTime > timeTables[v].startTime && timeTables[u].startTime < timeTables[v].endTime)
                     rooms += 1;
             }
 
