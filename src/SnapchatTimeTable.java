@@ -4,9 +4,10 @@ public class SnapchatTimeTable {
         ClassTimeTable timeTable = new ClassTimeTable(30, 75);
         ClassTimeTable timeTabl1 = new ClassTimeTable(0, 50);
         ClassTimeTable timeTable2 = new ClassTimeTable(60, 150);
-//        ClassTimeTable timeTable3 = new ClassTimeTable(45, 80);
-//        ClassTimeTable timeTable4 = new ClassTimeTable(130, 180);
-        ClassTimeTable[] timeTables = new ClassTimeTable[]{timeTable, timeTabl1, timeTable2};
+        ClassTimeTable timeTable3 = new ClassTimeTable(0, 500);
+        ClassTimeTable timeTable4 = new ClassTimeTable(40, 70);
+        ClassTimeTable[] timeTables = new ClassTimeTable[]{timeTable, timeTabl1, timeTable2,
+                timeTable3, timeTable4};
 
         int rooms = findNumberofRoomsNeeded(timeTables);
         System.out.println(rooms);
