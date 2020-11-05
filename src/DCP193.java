@@ -16,7 +16,6 @@ public class DCP193 {
 
         // Initialise the profit
         int profit = 0;
-        int trnsfee = 0;
 
         // The day at which the stock
         // must be bought
