@@ -36,8 +36,14 @@ public class StringCompress {
 //        System.out.println(newM);
 
         // compressedString(mess, 2);
-        subString("aa aa odg dog gdo");
+   //     subString("aa aa odg dog gdo");
         //sherlockAndAnagrams("aa aa odg dog gdo");
+        Integer a = new Integer(3);
+        Integer b = new Integer(3);
+
+        if (a.equals(b)) {
+    System.out.println("true");
+        }
     }
 
     static class Entity {

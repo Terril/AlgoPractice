@@ -1,3 +1,5 @@
+package dcp;
+
 public class DCP184 {
     public static void main(String args[]) {
         int arr[] = {42, 56, 14};

@@ -1,3 +1,9 @@
+package dcp;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
 public class DCP186 {
     public static void main(String args[]) {
 
@@ -43,16 +49,35 @@ public class DCP186 {
 
     private static void findTheSubSets(int arr[]) {
         int largestVariable = arr[0];
+        int otherSummedValue = arr[0];
+        Set A = new HashSet<Integer>();
+        Set B = new HashSet<Integer>();
         int sub[] = new int[arr.length - 1];
         for (int i = 1; i < arr.length; i++) {
             if (largestVariable < arr[i]) {
+                B.remove(largestVariable);
                 largestVariable = arr[i];
+                B.add(largestVariable);
+                A.add(arr[i]);
             } else {
                 sub[i - 1] = arr[i];
-                System.out.println(sub[i - 1]);
+                otherSummedValue += arr[i];
+                if (otherSummedValue < largestVariable) {
+                    A.add(arr[i]);
+                } else {
+                    B.add(arr[i]);
+                }
             }
         }
 
+        Iterator<Integer> it = A.iterator();
+        while(it.hasNext()){
+            System.out.println(it.next());
+        }
+        Iterator<Integer> its = B.iterator();
+        while(its.hasNext()){
+            System.out.println(its.next());
+        }
         System.out.println(largestVariable);
     }
 }
