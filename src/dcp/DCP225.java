@@ -1,5 +1,8 @@
 package dcp;
 
+import static java.lang.Math.log;
+import static java.lang.Math.pow;
+
 /*
  * Good morning! Here's your coding interview problem for today.
  *
@@ -17,10 +20,11 @@ package dcp;
 public class DCP225 {
     public static void main(String args[]) {
 
-        int numPrisoners = 5;
-        int k = 2;
+        int numPrisoners = 7;
+        int k = 3;
 
-        System.out.println(findLastSurvivingPrisoner(numPrisoners, k));
+        // System.out.println(findLastSurvivingPrisoner(numPrisoners, k));
+        System.out.println(LogNSol(numPrisoners, k));
     }
 
     private static int findLastSurvivingPrisoner(int n, int k) {
@@ -32,5 +36,9 @@ public class DCP225 {
     josephus(n - 1, k) considers the original
     position k%n + 1 as position 1 */
             return (findLastSurvivingPrisoner(n - 1, k) + k - 1) % n + 1;
+    }
+
+    private static double LogNSol(int n, int k) {
+        return 2* (n - pow(2, (int) (log(n) / log(2)))) + 1;
     }
 }
