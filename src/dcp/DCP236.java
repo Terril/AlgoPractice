@@ -13,6 +13,31 @@ package dcp;
  * */
 public class DCP236 {
     public static void main(String args[]) {
+        Point polygon1[] = {new Point(0, 0),
+                new Point(10, 0),
+                new Point(10, 10),
+                new Point(0, 10)};
+        int n = polygon1.length;
+        Point p = new Point(20, 20);
+        p = new Point(5, 5);
+        p = new Point(5, 1);
+        Point polygon2[] = {new Point(0, 0),
+                new Point(5, 5), new Point(5, 0)};
+        p = new Point(3, 3);
+        n = polygon2.length;
+        p = new Point(5, 1);
+ //       p = new Point(8, 1);
+        Point polygon3[] = {new Point(0, 0),
+                new Point(10, 0),
+                new Point(10, 10),
+                new Point(0, 10)};
+//        p = new Point(-1, 10);
+//        n = polygon3.length;
+        if (isInside(polygon2, n, p)) {
+            System.out.println("Yes");
+        } else {
+            System.out.println("No");
+        }
     }
 
     static class Point {
@@ -22,5 +47,20 @@ public class DCP236 {
             this.x = x;
             this.y = y;
         }
+    }
+
+    static boolean isInside(Point polygon[], int n, Point p) {
+        boolean inside = false;
+        for (Point poly : polygon) {
+            int xCor = poly.x;
+            int yCor = poly.y;
+
+            if (xCor > p.x && yCor > p.y) {
+                inside = true;
+                break;
+            }
+        }
+
+        return inside;
     }
 }
