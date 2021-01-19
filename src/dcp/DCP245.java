@@ -13,8 +13,8 @@ package dcp;
  * */
 public class DCP245 {
     public static void main(String args[]) {
-        int arr[] = {6, 2, 2, 0, 2, 1, 1, 3, 2, 9};
-        System.out.println(findMinJumpTillEnd(arr));
+        int arr[] = {6, 2, 4, 0, 5, 1, 1, 4, 2, 9};
+        System.out.println(findMinJumpTillEnd(arr, 0, arr.length));
     }
 
     private static int findMinJumpTillEnd(int arr[]) {
@@ -41,5 +41,26 @@ public class DCP245 {
 
         }
         return jump;
+    }
+
+    private static int findMinJumpTillEnd(int arr[], int l, int h) {
+        if (h == l) {
+            return 0;
+        }
+
+        if (arr[l] == 0) {
+            return Integer.MAX_VALUE;
+        }
+
+        int min = Integer.MAX_VALUE;
+
+        for (int i = l + 1; i <= h && i <= l + arr[l]; i++) {
+            int jump = findMinJumpTillEnd(arr, i, h);
+            if (jump != Integer.MAX_VALUE && jump + 1 < min) {
+                min = jump + 1;
+            }
+        }
+
+        return min;
     }
 }
