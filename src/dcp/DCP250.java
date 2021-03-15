@@ -24,10 +24,6 @@ may have the solution:
 public class DCP250 {
     public static void main(String args[]) {
 
-        Value[] arr = new Value[]{new Value('S', 9), new Value('E', 5), new Value('N', 6),
-                new Value('D', 7), new Value('M', 1), new Value('O', 0), new Value('R', 8),
-                new Value('Y', 2)};
-
         HashMap<Character, Integer> map = new HashMap<>();
         map.put('S', 9);
         map.put('E', 5);
@@ -62,14 +58,12 @@ public class DCP250 {
 
             char output, lastout = 0;
             if (sum >= 10) {
+                String sub = String.valueOf(sum);
+                String s = Character.toString(sub.charAt(sub.length() - 1));
                 if (x > 0) {
-                    String sub = String.valueOf(sum);
-                    String s = Character.toString(sub.charAt(sub.length() - 1));
                     carry = Integer.parseInt(Character.toString(sub.charAt(0)));
                     output = getKeyByValue(map, Integer.parseInt(s));
                 } else {
-                    String sub = String.valueOf(sum);
-                    String s = Character.toString(sub.charAt(sub.length() - 1));
                     String ca = Character.toString(sub.charAt(0));
                     output = getKeyByValue(map, Integer.parseInt(ca));
                     lastout = getKeyByValue(map, Integer.parseInt(s));
