@@ -100,14 +100,4 @@ public class DCP250 {
         }
         return null;
     }
-
-    static class Value {
-        char ch;
-        int v;
-
-        Value(char c, int val) {
-            ch = c;
-            v = val;
-        }
-    }
 }
