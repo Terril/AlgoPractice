@@ -3,8 +3,13 @@ import java.util.*;
 public class AccentureTestCode {
 
     public static void main(String args[]) {
+        int n = 3;
+
         String[] arr = new String[]{"712", "246", "365", "312"};
+        String[] arr1 = new String[] {"712", "345", "546", "446", "135"};
+        //sumCount(arr);
         System.out.println(sumCount(arr));
+        //System.out.println(findLogic(n));
     }
 
     static int sumCount(String[] arr) {
@@ -21,7 +26,6 @@ public class AccentureTestCode {
             }
             a.add(n);
         }
-        int k = col;
         int maxCount = 0;
         while (col > 0) {
             int tempCount = 0;
@@ -36,7 +40,7 @@ public class AccentureTestCode {
                         pos = j;
                     }
                 }
-                if (tempCount < value) {
+                if(tempCount < value) {
                     tempCount = value;
                 }
                 arrayData.remove(pos);
@@ -45,5 +49,16 @@ public class AccentureTestCode {
             col--;
         }
         return maxCount;
+    }
+
+    static int findLogic(int n) {
+        if (n == 1 || n == 0) {
+            return 1;
+        } else if (n == 2) {
+            return 2;
+        } else {
+            return findLogic(n - 2) + findLogic(n - 1);
+        }
+
     }
 }
