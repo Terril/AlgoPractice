@@ -42,7 +42,20 @@ public class DCP254 {
     }
 
     private static void createFullBinarytree(Node node) {
+        if (node == null) {
+            return;
+        }
 
+        if (node.left != null && node.right != null) {
+            System.out.print(node.val + " ");
+        } else if (node.left == null && node.right == null) {
+            System.out.print(node.val + " ");
+        }
+
+        createFullBinarytree(node.left);
+
+        /* now recur on right child */
+        createFullBinarytree(node.right);
 
     }
 
