@@ -30,7 +30,21 @@ public class DCP255 {
         int row = graph.length;
         //  int col = graph[0].length;
         for (int i = 0; i < 4; i++) {
+//            int col = graph[i].length;
             for (int j = 0; j < 4; j++) {
+//                int colVal = 0;
+//                if (j < col) {
+//                    if (j == graph[i][j]) {
+//                        colVal = 1;
+//                    } else {
+//                        colVal = graph[i][j];
+//                    }
+//                }
+//
+//                if(j == colVal) {
+//                    colVal = 1;
+//                }
+
                 transitiveGraph[i][j] = 0;
             }
         }
