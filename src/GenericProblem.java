@@ -47,24 +47,88 @@ public class GenericProblem {
 //        int v3 = 56;
 //        System.out.println(maxIceCream(c, v));
 
-        List<Object> p = new ArrayList<>();
-//        [5, 2, [7, -1],3, [6, [-13, 8],4]]
-        p.add(5);
-        p.add(2);
-        List<Object> q = new ArrayList<>();
-        q.add(7);
-        q.add(-1);
-        p.add(q);
-        p.add(3);
-        List<Object> r = new ArrayList<>();
-        r.add(6);
-        List<Object> s = new ArrayList<>();
-        s.add(-13);
-        s.add(8);
-        r.add(s);
-        r.add(4);
-        p.add(r);
-        System.out.println(productSum(p, 0));
+//        List<Object> p = new ArrayList<>();
+////        [5, 2, [7, -1],3, [6, [-13, 8],4]]
+//        p.add(5);
+//        p.add(2);
+//        List<Object> q = new ArrayList<>();
+//        q.add(7);
+//        q.add(-1);
+//        p.add(q);
+//        p.add(3);
+//        List<Object> r = new ArrayList<>();
+//        r.add(6);
+//        List<Object> s = new ArrayList<>();
+//        s.add(-13);
+//        s.add(8);
+//        r.add(s);
+//        r.add(4);
+//        p.add(r);
+//        System.out.println(productSum(p, 0));
+
+//
+//        int arr[] = {8, 5, 2, 9, 5, 6, 3};
+//        int[] out = insertionSort(arr);
+//
+//        for (int i: out) {
+//            System.out.println(i);
+//        }
+
+//        int key = 2;
+//        String d = "xyz";
+//
+//        System.out.println(caesarCypherEncryptor(d, key));
+//
+//        String in = "........______=========AAAA   AAABBBB   BBB";
+//        System.out.println(runLengthEncoding(in));
+
+//        int[] a = {12, 3, 1, 2, -6, 5, -8, 6};
+//        int t = 0;
+//        int[] a1 = {1, 2, 3};
+//        int t1 = 6;
+//        List<Integer[]> o = threeNumberSum(a1, t1);
+//
+//        for (Integer[] c : o) {
+//            for (Integer x : c) {
+//                System.out.println(x);
+//            }
+//        }
+
+//        int[] arrayOne = {10, 0, 20, 25};
+//        int[] arrayTwo = {1005, 1006, 1014, 1032, 1031};
+//
+//        int x[] = smallestDifference(arrayOne, arrayTwo);
+//
+//        for (int y : x) {
+//            System.out.println(y);
+//        }
+//        List<Integer> arr = new ArrayList<>();
+//        arr.add(2);
+//        arr.add(1);
+//        arr.add(2);
+//        arr.add(2);
+//        arr.add(2);
+//        arr.add(3);
+//        arr.add(4);
+//        arr.add(2);
+//        int a = 2;
+//
+//        List<Integer> res = moveElementToEnd(arr, a);
+//        for (Integer k :
+//                res) {
+//            System.out.println(k);
+//        }
+//
+//        System.out.println(isUpperCase("J'ai besoin de pâtes"));
+
+        int[] arr = {2, 5, 5, 5, 3, 8, 8};
+        int[] res = solve(arr);
+
+        for (int j:
+             res) {
+            System.out.println(j);
+
+        }
     }
 
     private static PriorityQueue<Integer> q = new PriorityQueue<Integer>();
@@ -193,5 +257,214 @@ public class GenericProblem {
         return finalSum;
     }
 
+    public static int[] insertionSort(int[] array) {
+        // Write your code here.
+
+        for (int i = 1; i < array.length; i++) {
+            int u = array[i];
+            int j = i - 1;
+            while (j >= 0 && array[j] > u) {
+                array[j + 1] = array[j];
+                j = j - 1;
+            }
+            array[j + 1] = u;
+        }
+        return array;
+    }
+
+
+    public static String caesarCypherEncryptor(String str, int key) {
+        int size = str.length();
+        String out = "";
+        for (int i = 0; i < size; i++) {
+            char x = str.charAt(i);
+            int c = (int) str.charAt(i);
+            c = ((c + key - 97) % 26 + 97);
+            x = (char) c;
+            out += x;
+
+        }
+        return out;
+    }
+
+    public static String runLengthEncoding(String string) {
+        // Write your code here.
+        int len = string.length();
+        int count = 0;
+        String out = "";
+        char x = string.charAt(0);
+        for (int i = 0; i < len; i++) {
+            char y = string.charAt(i);
+            if (count == 9) {
+                out = out + count + x;
+                count = 0;
+                x = y;
+            }
+            if (x == y) {
+                count += 1;
+            } else {
+                out = out + count + x;
+                count = 1;
+                x = y;
+            }
+        }
+
+        return out + count + x;
+    }
+
+    public static List<Integer[]> threeNumberSum(int[] array, int targetSum) {
+        // Write your code here.
+        Arrays.sort(array);
+        int len = array.length;
+        List<Integer[]> a = new ArrayList<Integer[]>();
+        for (int j = 0; j < len; j++) {
+            int left = j + 1;
+            int right = len - 1;
+            while (left < right) {
+                int sum = array[j] + array[left] + array[right];
+                if (sum == targetSum) {
+                    a = threeNumberSumUtil(targetSum, array[j], array[left], array[right], a);
+                    left++;
+                    right--;
+                } else if (sum < targetSum) {
+                    left++;
+                } else {
+                    right--;
+                }
+            }
+        }
+        return a;
+    }
+
+    private static List<Integer[]> threeNumberSumUtil(int target, int one, int two, int three, List<Integer[]> a) {
+
+        Integer[] x = new Integer[3];
+        x[0] = one;
+        x[1] = two;
+        x[2] = three;
+        a.add(x);
+
+        return a;
+    }
+
+    public static int[] smallestDifference(int[] arrayOne, int[] arrayTwo) {
+        // Write your code here.
+        int[] out = new int[2];
+
+        int len1 = arrayOne.length;
+        int len2 = arrayTwo.length;
+
+        Arrays.sort(arrayOne);
+        Arrays.sort(arrayTwo);
+
+        int val = Integer.MAX_VALUE;
+        int temp = Integer.MAX_VALUE;
+//        for(int i = 0; i < len1; i++) {
+//            int item1 = arrayOne[i];
+//            int temp = Integer.MAX_VALUE ;
+//            for (int j = 0; j < len2; j++) {
+//                int item2 = arrayTwo[j];
+//                int diff = Math.abs(item1) % Math.abs(item2);
+//                if (temp != diff && temp >= diff) {
+//                    val = temp;
+//                    out[0] = item1;
+//                    out[1] = item2;
+//                }
+//                temp = diff;
+//
+//            }
+//        }
+
+
+        int diff = Integer.MAX_VALUE;
+        int val1 = 0;
+        int val2 = 0;
+        for (int i = 0; i < len1; i++) {
+            int j = 0;
+            int item1 = arrayOne[i];
+            while (j < len2) {
+                int item2 = arrayTwo[j];
+                if (item1 > item2) {
+                    diff = item1 - item2;
+                } else if (item2 > item1) {
+                    diff = item2 - item1;
+                } else {
+                    out[0] = item1;
+                    out[1] = item2;
+                }
+
+                if (temp > diff) {
+                    temp = diff;
+                    val1 = item1;
+                    val2 = item2;
+                }
+                j++;
+            }
+            if (val > temp) {
+                val = temp;
+                out[0] = val1;
+                out[1] = val2;
+            }
+
+        }
+        return out;
+    }
+
+
+    public static List<Integer> moveElementToEnd(List<Integer> array, int toMove) {
+        // Write your code here.
+        int len = array.size() - 1;
+        for (int i = 0; i <= len; i++) {
+            int item = array.get(i);
+            if (item == toMove) {
+                while (len > i) {
+                    int item1 = array.get(len);
+                    if (item1 != item) {
+                        int temp = item1;
+                        item1 = item;
+                        item = temp;
+                        array.set(len, item1);
+                        array.set(i, item);
+                        break;
+                    }
+                    len--;
+                }
+            }
+        }
+        return array;
+    }
+
+
+    private static boolean isUpperCase(String s) {
+        char c = s.charAt(0);
+
+        if (Character.isUpperCase(c)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static int[] solve(int[] nums) {
+        int len = nums.length;
+        if(len < 3) {
+            return new int[0];
+        }
+
+        int[] peaks = new int[len-2];
+
+        int c = 1;
+        int prev = nums[0];
+        while(c < len-1) {
+            int cur = nums[c];
+            int nex = nums[c+1];
+            if(cur >= prev && cur >= nex) {
+                peaks[c-1] = c;
+            }
+            prev = cur;
+            c++;
+        }
+        return peaks;
+    }
 }
 
