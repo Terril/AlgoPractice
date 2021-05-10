@@ -1,12 +1,12 @@
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class AccentureTestCode {
 
     public static void main(String args[]) {
         int n = 3;
 
-        String[] arr = new String[]{"712", "345", "546", "446", "135"};
+        String[] arr = new String[]{"712", "246", "365", "312"};
+        String[] arr1 = new String[] {"712", "345", "546", "446", "135"};
         //sumCount(arr);
         System.out.println(sumCount(arr));
         //System.out.println(findLogic(n));
@@ -16,29 +16,37 @@ public class AccentureTestCode {
         int row = arr.length;
         int col = arr[0].length();
 
-        int k = col;
+        List<List<Integer>> a = new ArrayList<>();
+        for (int x = 0; x < row; x++) {
+            String p = arr[x];
+            ArrayList<Integer> n = new ArrayList<>();
+            for (int y = 0; y < col; y++) {
+                int d = Integer.parseInt(String.valueOf(p.charAt(y)));
+                n.add(d);
+            }
+            a.add(n);
+        }
         int maxCount = 0;
-        Set<Integer> s = new HashSet<>();
-        while (k > 0) {
-            int value = 0;
-            for (int i = 0; i < row; i++) {
-                String m = arr[i];
-                int x = 0;
-                for (int j = 0; j < col; j++) {
-                    int d = Integer.parseInt(String.valueOf(m.charAt(j)));
-                     if (!s.contains(d)) {
-                        if (value < d) {
-                            value = d;
-                        }
-                    }
-                    if (x < d) {
-                        x = d;
+        while (col > 0) {
+            int tempCount = 0;
+            for (int i = 0; i < a.size(); i++) {
+                int pos = 0;
+                int value = 0;
+                List<Integer> arrayData = a.get(i);
+                for (int j = 0; j < arrayData.size(); j++) {
+                    int d = arrayData.get(j);
+                    if (value < d) {
+                        value = d;
+                        pos = j;
                     }
                 }
-                s.add(x);
+                if(tempCount < value) {
+                    tempCount = value;
+                }
+                arrayData.remove(pos);
             }
-            maxCount += value;
-            k--;
+            maxCount += tempCount;
+            col--;
         }
         return maxCount;
     }

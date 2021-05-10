@@ -1,0 +1,189 @@
+package dcp;
+
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.PriorityQueue;
+
+/*
+* This problem was asked by Amazon.
+*
+* Huffman coding is a method of encoding characters based on their frequency.
+* Each letter is assigned a variable-length binary string, such as 0101 or 111110,
+* where shorter lengths correspond to more common letters.
+* To accomplish this,
+* a binary tree is built such that the path from the root to any leaf uniquely maps to a character.
+* When traversing the path,
+* descending to a left child corresponds to a 0 in the prefix,
+* while descending right corresponds to 1.
+
+Here is an example tree (note that only the leaf nodes have letters):
+
+        *
+      /   \
+    *       *
+   / \     / \
+  *   a   t   *
+ /             \
+c               s
+With this encoding, cats would be represented as 0000110111.
+
+Given a dictionary of character frequencies,
+* build a Huffman tree,
+* and use it to determine a mapping between characters and their encoded binary strings.
+* */
+public class DCP261 {
+    public static void main(String args[]) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        TreeNode node = new TreeNode('*', map);
+        node.left = new TreeNode('*', map);
+        node.right = new TreeNode('*', map);
+        node.left.left = new TreeNode('*', map);
+        node.left.right = new TreeNode('a', map);
+        node.left.left.left = new TreeNode('c', map);
+        node.right.left = new TreeNode('t', map);
+        node.right.right = new TreeNode('*', map);
+        node.right.right.right = new TreeNode('s', map);
+
+
+       // buildHuffManTree(node, map);
+
+        char[] arr = {'c', 'a', 't', 's'};
+        buildHuffManTree(arr);
+    }
+
+    static class TreeNode {
+        char value;
+        TreeNode left;
+        TreeNode right;
+        int count = 1;
+
+        int data;
+
+        TreeNode() {
+        }
+
+        TreeNode(char val, HashMap<Character, Integer> map) {
+            value = val;
+            left = right = null;
+            if (map.get(value) != null && map.get(value) >= count) {
+                count = map.get(value) + 1;
+            }
+            map.put(value, count);
+        }
+    }
+
+    private static void buildHuffManTree(TreeNode node, HashMap<Character, Integer> map) {
+        if (node.left == null) {
+            return;
+        }
+        if (node.right == null) {
+            return;
+        }
+
+        for (char k : map.keySet()) {
+            System.out.print(k);
+            System.out.println(map.get(k));
+        }
+    }
+
+    static class MyComparator implements Comparator<TreeNode> {
+        public int compare(TreeNode x, TreeNode y) {
+
+            return x.data - y.data;
+        }
+    }
+
+    private static void buildHuffManTree(char[] arr) {
+        int n = arr.length;
+        PriorityQueue<TreeNode> q
+                = new PriorityQueue<TreeNode>(n, new MyComparator());
+        HashMap<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+
+            // creating a Huffman node object
+            // and add it to the priority queue.
+            TreeNode hn = new TreeNode();
+            int count = 1;
+            hn.value = arr[i];
+            if (map.get(arr[i]) != null && map.get(arr[i]) >= count) {
+                count = map.get(arr[i]) + 1;
+            }
+            map.put(arr[i], count);
+            hn.data = count;
+
+            hn.left = null;
+            hn.right = null;
+
+            // add functions adds
+            // the huffman node to the queue.
+            q.add(hn);
+        }
+
+        // create a root node
+        TreeNode root = null;
+
+        // Here we will extract the two minimum value
+        // from the heap each time until
+        // its size reduces to 1, extract until
+        // all the nodes are extracted.
+        while (q.size() > 1) {
+
+            // first min extract.
+            TreeNode x = q.peek();
+            q.poll();
+
+            // second min extarct.
+            TreeNode y = q.peek();
+            q.poll();
+
+            // new node f which is equal
+            TreeNode f = new TreeNode();
+
+            // to the sum of the frequency of the two nodes
+            // assigning values to the f node.
+            f.data = x.data + y.data;
+            f.value = '-';
+
+            // first extracted node as left child.
+            f.left = x;
+
+            // second extracted node as the right child.
+            f.right = y;
+
+            // marking the f node as the root node.
+            root = f;
+
+            // add this node to the priority-queue.
+            q.add(f);
+        }
+
+        // print the codes by traversing the tree
+        printCode(root, "");
+    }
+
+    static void printCode(TreeNode root, String s) {
+
+        // base case; if the left and right are null
+        // then its a leaf node and we print
+        // the code s generated by traversing the tree.
+        if (root.left
+                == null
+                && root.right
+                == null
+                && Character.isLetter(root.value)) {
+
+            // c is the character in the node
+            System.out.println(root.value + ":" + s);
+
+            return;
+        }
+
+        // if we go to left then add "0" to the code.
+        // if we go to the right add"1" to the code.
+
+        // recursive calls for left and
+        // right sub-tree of the generated tree.
+        printCode(root.left, s + "0");
+        printCode(root.right, s + "1");
+    }
+}
