@@ -2,7 +2,7 @@ package leetcode;
 
 import java.util.*;
 
-public class Problem5981 {
+public class Problem2155 {
     public static void main(String args[]) {
         int n[] = {0, 0, 1, 0};
         List<Integer> r = maxScoreIndices(n);
